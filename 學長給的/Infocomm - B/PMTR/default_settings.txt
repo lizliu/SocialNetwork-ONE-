@@ -1,0 +1,81 @@
+
+Scenario.name = simbet_D01%%Group.router%%%
+Scenario.simulateConnections = false
+Scenario.updateInterval = 1
+Scenario.endTime = 1632979
+Scenario.nrofHostGroups = 1
+
+
+btInterface.type = SimpleBroadcastInterface
+btInterface.transmitSpeed = 1M
+btInterface.transmitRange = 10
+
+
+###################################
+Group.movementModel = RandomWaypoint
+Group.router = DecisionEngineRouter
+#Group.router = SimbetRouter
+#Group.router = DirectDeliveryRouter
+Group.bufferSize = 50M
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+Group.speed = 0, 0.1
+Group.nrofHosts = 49
+Group.groupID = n
+#Group.msgTtl = [5000]
+
+
+Events.nrof = 2
+Events1.class = ExternalEventsQueue
+Events2.class = MessageEventGenerator
+ExternalEvents.nrofPreload = 500
+Events1.filePath = ee/pmtr-dirconn.txt
+Events2.interval = 1632
+Events2.hosts = 0,49
+Events2.prefix = Y
+Events2.size = 1k
+########################
+
+
+
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 10000, 8000
+MovementModel.rngSeed = 66
+
+
+# how many reports to load
+Report.nrofReports = 1
+#Report.reportDir = density/
+Report.report1 = MessageStatsReport
+#Report.report2 = LocalcommunityReport
+#LocalcommunityReport.granularity = 50000
+#Report.report2 = ContactsPerHourReport
+
+## Default settings for some routers settings
+ProphetV2Router.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+
+## GUI settings
+
+# GUI underlay image settings
+GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 64, 20
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 4.75
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = -0.015
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 200
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$

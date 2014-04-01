@@ -1,0 +1,57 @@
+==========================================================
+README for the Haggle data sets collected at Infocom 2006.
+==========================================================
+==============
+NB(nota bene): 
+==============
+		Please read the General README of Haggle data sets which contains a description of the software and pre-processing steps used.
+		This file contains information on Experiment 6, which was conducted during Infocom 2006 in Barcelona
+=========
+Location: 
+=========
+		Princesa Sofia Gran Hotel, Barcelona
+=====
+Date:
+=====
+		Monday, April 24th to Thursday April 27th, 2006
+=========
+Duration: 
+=========
+		Devices distributed on Sundary April 23rd, between 7:00 and 9:00 pm.
+		Devices collected back starting from April 26th and on April 27th during the day.
+===============
+Origin of time: 
+===============
+		All times indicated in the files corresponds to the seconds elapsed since the motes were turned on. 
+		The motes had been all turned on on Sunday April 23rd at 5:01pm (which is 61260 seconds after midnight on that day). 
+=============
+Participants: 
+=============
+		70 students and researchers, attending the student workshop.
+		Participating nodes:
+			- Nodes with ID#1 through #17 are static long range iMotes iMotes deployed throughout the area.
+			- The three nodes with ID#18-#20 are long range iMotes that have been placed in lift of the hotel.
+			- Nodes #21-#98 are participants of the Infocom student workshop.
+			- Nodes with ID larger or equal than #100 are external devices.
+			
+		Note that the 20 stationary (long range) iMotes have more powerful battery and extended radio range (around 100 meters). 
+		The 78 mobile iMotes have a wireless range around 30 meters. 
+===============
+Social data(79)
+===============
+	Complete information(64)
+		//
+	Informations is not complete(1)
+	   <ID>
+		92
+	Unfilled data informations(14)
+	   <ID>
+		29	33	38	47	50	58	61	63
+		78	79	85	90	91	94
+===============
+Contact data(64)
+===============
+	Contact is not happended(1)
+	   <ID>
+		99
+		

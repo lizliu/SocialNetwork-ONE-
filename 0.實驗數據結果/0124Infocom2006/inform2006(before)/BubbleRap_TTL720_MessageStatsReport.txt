@@ -1,0 +1,21 @@
+Message stats for scenario BubbleRap_TTL720
+sim_time: 259200.0000
+created: 7518
+started: 1877452
+relayed: 1853020
+aborted: 24428
+dropped: 1816178
+removed: 33085
+delivered: 3101
+delivery_prob: 0.4125
+response_prob: 0.0000
+overhead_ratio: 596.5556
+latency_avg: 12904.5637
+latency_med: 8701.0000
+hopcount_avg: 3.3560
+hopcount_med: 3
+buffertime_avg: 915.6202
+buffertime_med: 223.0000
+rtt_avg: NaN
+rtt_med: NaN
+totalCost: 246.4777866453844

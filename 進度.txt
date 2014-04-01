@@ -1,0 +1,25 @@
+1. 修inform2006 (Done)
+
+2. bridge node 實作在 bubblerap內
+
+3. community overlap(階層式,非階層式{即局部重疊})的判斷
+
+
+#####晚上把hybrid的版本說明更新,順便更新google github上的程式版本####
+
+
+
+Bridge Node Identification
+
+
+-------------
+03/18  15:33
+加入PeopleRanke概念
+MessageRouter => PoepleRankValue,NrofFriends
+DecisionEngineRouter => Friends
+
+/*PeopleRank Begin*/
+/*PeopleRank End*/
+
+----------
+

@@ -1,0 +1,21 @@
+Message stats for scenario BubbleRap_TTL60
+sim_time: 1875143.0000
+created: 1000
+started: 376
+relayed: 372
+aborted: 4
+dropped: 1312
+removed: 43
+delivered: 15
+delivery_prob: 0.0150
+response_prob: 0.0000
+overhead_ratio: 23.8000
+latency_avg: 1136.2000
+latency_med: 806.0000
+hopcount_avg: 1.6667
+hopcount_med: 2
+buffertime_avg: 3129.9852
+buffertime_med: 3570.0000
+rtt_avg: NaN
+rtt_med: NaN
+totalCost: 0.372

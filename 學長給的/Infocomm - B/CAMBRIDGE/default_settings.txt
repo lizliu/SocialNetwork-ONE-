@@ -1,0 +1,180 @@
+#
+# Default settings for the simulation
+#
+
+Scenario.name = default_scenario
+Scenario.simulateConnections = false
+Scenario.updateInterval = 1
+# 43k ~= 12h
+Scenario.endTime = 987529 
+#Scenario.endTime = 1987529
+
+#Group.msgTtl = 180
+
+Scenario.nrofHostGroups = 3
+
+btInterface.type = SimpleBroadcastInterface
+btInterface.transmitSpeed = 1M
+btInterface.transmitRange = 10
+###################################
+### common settings for all groups
+Group.movementModel = MapBasedMovement
+Group.router = EpidemicRouter
+#Group.router = DecisionEngineRouter
+#DecisionEngineRouter.decisionEngine = community.DistributedBubbleRap
+#DecisionEngineRouter.communityDetectAlg = routing.community.SimpleCommunityDetection
+#DecisionEngineRouter.lambda = 0.6 
+#DecisionEngineRouter.gamma = 0.6
+#DecisionEngineRouter.decisionEngine = community.DistributedBubbleRap
+#DecisionEngineRouter.communityDetectAlg = routing.community.KCliqueCommunityDetection
+#DecisionEngineRouter.K = 27
+#DecisionEngineRouter.familiarThreshold = 2000
+#DecisionEngineRouter.centralityAlg = routing.community.CWindowCentrality
+Group.bufferSize = 50M
+Group.transmitRange = 10
+# transmit speed of 2 Mbps = 250kBps
+Group.transmitSpeed = 1M
+Group.waitTime = 0, 0
+# walking speeds
+Group.speed = 0.5, 1.5
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+Group.nrOfOffices = 200
+Group.workDayLength = 28800
+Group.probGoShoppingAfterWork = 0.5
+Group.nrOfMeetingSpots = 24
+
+Group.officeWaitTimeParetoCoeff = 0.5
+Group.officeMinWaitTime = 10
+Group.officeMaxWaitTime = 100000
+Group.officeSize = 100
+
+Group.nrofHosts = 0
+
+Group.timeDiffSTD = 7200
+Group.minGroupSize = 1
+Group.maxGroupSize = 3
+Group.minAfterShoppingStopTime = 3600
+Group.maxAfterShoppingStopTime = 7200
+
+####################################################
+
+
+Group1.groupID = b
+Group1.speed = 7, 10
+Group1.waitTime = 10, 30
+Group1.nrofHosts = 6
+Group1.movementModel = BusMovement
+Group1.routeFile = data/HelsinkiMedium/H_bus.wkt
+Group1.routeType = 2
+Group1.busControlSystemNr = 8
+
+Group2.groupID = P
+Group2.waitTime = 0, 0 
+Group2.nrofHosts = 20
+Group2.movementModel = WorkingDayMovement
+Group2.busControlSystemNr = 8
+Group2.speed = 0.8, 1.4
+Group2.ownCarProb = 0.5
+Group2.shoppingControlSystemNr = 8
+Group2.nrOfOffices = 200
+Group2.nrOfMeetingSpots = 24
+
+Group3.groupID = T
+Group3.movementModel = ShortestPathMapBasedMovement
+Group3.waitTime = 100, 300
+Group3.speed = 7, 10
+Group3.nrofHosts = 10
+
+Events.nrof = 2
+Events1.class = ExternalEventsQueue
+Events2.class = MessageEventGenerator
+#Events2.class = ExternalEventsQueue
+# max number of external events to preload (default = 500) 
+ExternalEvents.nrofPreload = 1000
+# path to external events file
+Events1.filePath = ee/Haggle4-Cam-Imote-dirconn.txt
+#Events1.filePath = ee/Haggle4-Cam-Imote.txt
+#Events1.filePath = ee/union_filter_Haggle4-Cam-Imote.txt
+#Events1.filePath = ee/test.txt
+Events2.interval = 987
+#Events2.interval = 700
+#Events2.time = 0, 988
+Events2.hosts = 0,36
+Events2.prefix = T
+Events2.size = 1k
+########################
+
+# seed for movement models' pseudo random number generator (default = 0)
+#MovementModel.rngSeed = [2; 8372; 98092; 18293]
+#MovementModel.rngSeed = [2; 8372]
+MovementModel.rngSeed = 66
+
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 10000, 8000
+# How long time to move hosts in the world before real simulation
+#MovementModel.warmup = 43000
+
+## Map based movement -movement model specific settings
+MapBasedMovement.nrofMapFiles = 1
+
+MapBasedMovement.mapFile1 = data/HelsinkiMedium/roads.wkt
+
+## Reports - all report names have to be valid report classes
+
+# how many reports to load
+Report.nrofReports = 1
+#Report.warmup = 20730
+Report.reportDir = reports/
+
+# Report classes to load
+Report.report1 = MessageStatsReport
+#Report.report2 = find
+#find.granularity = 10000
+#Report.report2 = densityreport
+#densityreport.granularity = 5000
+#Report.report3 = GlobalCentrality
+#GlobalCentrality.granularity = 1000
+#Report.report2 = LocalcommunityReport
+#LocalcommunityReport.granularity = 5000
+#Report.report3 = LocalCentrality
+#LocalCentrality.granularity = 5000
+#Report.report4 = GlobalCentrality
+#GlobalCentrality.granularity = 5000
+#Report.lambda = 0.6
+#Report.gamma = 0.6
+#Report.familiarThreshold = 2000
+#Report.report4 = ContactsDuringAnICTReport
+#Report.report2 = MessageLocationReport
+#MessageLocationReport.granularity = 1
+#MessageLocationReport.messages = 1
+#Report.report3 = MessageDeliveryReport
+
+## Default settings for some routers settings
+ProphetV2Router.secondsInTimeUnit = 30
+SprayAndWaitRouter.nrofCopies = 6
+SprayAndWaitRouter.binaryMode = true
+
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+
+## GUI settings
+
+# GUI underlay image settings
+GUI.UnderlayImage.fileName = data/helsinki_underlay.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 64, 20
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 4.75
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = -0.015
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 200
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$

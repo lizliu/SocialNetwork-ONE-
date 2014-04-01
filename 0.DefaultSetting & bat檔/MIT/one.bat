@@ -1,0 +1,1 @@
+java -Xmx512M -cp .;lib/ECLA.jar;lib/DTNConsoleConnection.jar core.DTNSim %* -b 8 bubble.txt

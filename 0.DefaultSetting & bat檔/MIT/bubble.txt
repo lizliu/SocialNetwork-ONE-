@@ -1,0 +1,34 @@
+# This scenario tests how different TTL values affect message delivery probabilities
+# This test can be run with command: one -b epidemic_ttl_test.txt 3
+
+# Scenario name will be based on the TTL setting, e.g., "Epidemic_TTL180" 
+# this helps identifying the correct report files
+Scenario.name = BubbleRap_TTL%%Group.msgTtl%%
+
+# All nodes should use the Epidemic routing module
+
+Group.router = DecisionEngineRouter
+#DecisionEngineRouter.decisionEngine = community.DistributedBubbleRap
+#DecisionEngineRouter.communityDetectAlg = routing.community.SimpleCommunityDetection
+#DecisionEngineRouter.lambda = 0.5
+#DecisionEngineRouter.gamma = 0.5
+DecisionEngineRouter.decisionEngine = community.DistributedBubbleRap
+DecisionEngineRouter.communityDetectAlg = routing.community.KCliqueCommunityDetection
+#DecisionEngineRouter.K = [2;3;4;6;8;10;14;20]
+DecisionEngineRouter.K = [3]
+#DecisionEngineRouter.familiarThreshold = [100; 500; 1000; 5000; 10000; 50000; 100000]
+#DecisionEngineRouter.familiarThreshold = [10000]
+DecisionEngineRouter.familiarThreshold = [10000]
+DecisionEngineRouter.centralityAlg = routing.community.CWindowCentrality
+
+
+# Use TTL of 1, 6 and 12 hours (TTL value is given in minutes)
+#(Inform2006)
+#Group.msgTtl =  [2;5;10;30;60;180;360;720;1440;2880;3600]
+Group.msgTtl =  [3600;2880;1440;720;360;180;60;30;10;5;2]
+#(MIT)
+#[30min,1H,12H,1D,3D,1W,3W,1mon]
+Group.msgTtl =  [30;60;720;1440;4320;10080;30240;43200]
+# MessageStatsReport is enabled by default_settings.txt but 
+# let's override the report directory path setting
+Report.reportDir = BubbleRap_ttl_test/

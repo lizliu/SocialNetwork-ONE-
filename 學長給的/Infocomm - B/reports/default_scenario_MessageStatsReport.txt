@@ -1,0 +1,26 @@
+Message stats for scenario default_scenario
+sim_time: 0.0000
+
+delivery_prob: 0.0000
+deliverycost: 0.0000created: 0
+started: 0
+relayed: 0
+Global_centralityrRelay: 0
+local_centralityrRelay: 0
+aborted: 0
+dropped: 0
+removed: 0
+delivered: 0
+response_prob: 0.0000
+overhead_ratio: NaN
+latency_avg: NaN
+latency_med: NaN
+hopcount_avg: NaN
+hopcount_med: 0
+buffertime_avg: NaN
+buffertime_med: NaN
+rtt_avg: NaN
+rtt_med: NaN
+
+
+

@@ -1,0 +1,173 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Main {
+	public static final int runs = 100;
+	public static final double Initial_PR = 0.15;
+	public static final double dumping_factor = 0.85;
+	public static final int Hosts = 65;
+
+	public static void main(String args[]) {
+
+		RankTable rt = new RankTable();
+		LinkageTable lt = new LinkageTable();
+		Set<Contacts> totalhosts = new HashSet<Contacts>();
+		for (int i = 0; i < Hosts; i++) {
+			try {
+				String filepath = "ee\\tt\\" + Integer.toString(i) + ".txt";
+				FileReader fr = new FileReader(filepath);
+				BufferedReader br = new BufferedReader(fr);
+				String s;
+				Contacts c = new Contacts(Integer.toString(i));
+				while ((s = br.readLine()) != null) {
+					String[] line = s.split("\t");
+					c.puttimes(line[0], Integer.parseInt(line[1]));
+				}
+				totalhosts.add(c);
+				fr.close();
+				br.close();
+			} catch (Exception e) {
+				System.out.println("Parser Error:");
+				e.printStackTrace();
+			}
+		}
+		try {
+			String filepath = "ee\\" + "Friends.txt";
+			FileReader fr = new FileReader(filepath);
+			BufferedReader br = new BufferedReader(fr);
+			String s;
+			Contacts con = null;
+			while ((s = br.readLine()) != null) {
+				String[] line1 = s.split("\t");
+				for (Contacts c : totalhosts) {
+					if (c.getname().equals(line1[0].substring(1))) {
+						con = c;
+						break;
+					}
+				}
+				rt.add(new Rank(line1[0], Initial_PR));
+				// System.out.print(line1[0] + "\t");
+				if (line1.length <= 1)
+					;
+				else {
+					String[] line2 = line1[1].split(",");
+					for (int i = 0; i < line2.length; i++) {
+						lt.add(new Linkage(line1[0], line2[i]));
+						con.addmachi(line2[i].substring(1));
+						// System.out.print(line2[i] + ",");
+					}
+				}
+				// System.out.print("\n");
+			}
+			fr.close();
+			br.close();
+		} catch (Exception e) {
+			System.out.println("Parser Error:");
+			e.printStackTrace();
+		}
+		Iterator<Rank> rtIt = rt.iterator();
+		Iterator<Linkage> ltIt;
+		while (rtIt.hasNext()) {
+			Rank rank = rtIt.next();
+			ltIt = lt.iterator();
+			while (ltIt.hasNext()) {
+				Linkage link = ltIt.next();
+				if (link.getSrc().equals(rank.getUrl())) {
+					rank.addRankOut();
+				}
+			}
+		}
+
+		// printRankTable(rt);
+
+		for (int i = 0; i < runs; i++) {
+
+			// System.out.println("======================= round " + i +
+			// "=========================");
+
+			rtIt = rt.iterator();
+			while (rtIt.hasNext()) {
+				Rank rank = rtIt.next();
+				ltIt = lt.iterator();
+				while (ltIt.hasNext()) {
+					Linkage link = ltIt.next();
+					if (rank.getUrl().equals(link.getSrc())) {
+						link.setSrcRank(rank.getRank() / rank.getNum());
+					}
+				}
+			}
+
+			// printLinkageTable(lt);
+
+			rtIt = rt.iterator();
+			while (rtIt.hasNext()) {
+				Rank rank = rtIt.next();
+				ltIt = lt.iterator();
+				while (ltIt.hasNext()) {
+					Linkage link = ltIt.next();
+					if (rank.getUrl().equals(link.getDst())) {
+						Contacts con = null;
+						for (Contacts c : totalhosts) {
+							if (c.getname().equals(rank.getUrl().substring(1))) {
+								con = c;
+							}
+						}
+						double wei = con.getnum(link.getSrc().substring(1))
+								/ con.getsum();
+						// System.out.println(con.getnum(link.getSrc().substring(1)));
+						if (con.getnum(link.getSrc().substring(1)) > 0)
+							rank.getAcc().add(wei * link.getSrcRank());
+						else
+							rank.getAcc().add(0 * link.getSrcRank());
+					}
+				}
+
+			}
+
+			// printRankTable(rt);
+
+			rtIt = rt.iterator();
+			while (rtIt.hasNext()) {
+				Rank rank = rtIt.next();
+				//if (rank.getAcc().getNum() != 0) {
+					rank.setRank((1.0 - dumping_factor + dumping_factor
+							* rank.getAcc().getRank()));
+				//}
+				rank.getAcc().clear();
+			}
+			// printRankTable(rt);
+		}
+		printRankTable(rt);
+	}
+
+	public static void printRankTable(RankTable rt) {
+		Iterator<Rank> it = rt.iterator();
+		it = rt.iterator();
+		while (it.hasNext()) {
+			Rank rank = it.next();
+			Accumulator acc = rank.getAcc();
+			/*
+			 * System.out.println(rank.getUrl() + " : " + rank.getRank() + " : "
+			 * + rank.getNum() + " : (" + acc.getRank() + "," + acc.getNum() +
+			 * ")");
+			 */
+			System.out.println(rank.getUrl().substring(1) + "\t"
+					+ rank.getRank());
+		}
+		System.out.println();
+	}
+
+	public static void printLinkageTable(LinkageTable lt) {
+		Iterator<Linkage> it = lt.iterator();
+		while (it.hasNext()) {
+			Linkage link = it.next();
+			System.out.println(link.getSrc() + " : " + link.getDst() + " : "
+					+ link.getSrcRank());
+		}
+		System.out.println();
+	}
+
+}

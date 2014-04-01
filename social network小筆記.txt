@@ -1,0 +1,11 @@
+country 現在住的國家
+nationality 出生國籍
+
+Cost = relayed / created
+Prob = delivered / created
+
+
+step 1.transferDone : Sender
+
+step 2.messageTransferred : Receiver
+
